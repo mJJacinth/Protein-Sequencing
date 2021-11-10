@@ -4,6 +4,7 @@ Name:
 Roll Number:
 """
 
+from os import read
 import hw6_protein_tests as test
 
 project = "Protein" # don't edit this
@@ -17,7 +18,12 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
+    str=""
+    f=open(filename,"r")
+    text=f.read().splitlines()
+    for i in text:
+        str+=i
+    return str
 
 
 '''
@@ -27,6 +33,7 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
+    
     return
 
 
