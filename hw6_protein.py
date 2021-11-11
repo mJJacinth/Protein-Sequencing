@@ -4,7 +4,9 @@ Name:
 Roll Number:
 """
 
+from os import read
 import hw6_protein_tests as test
+from textwrap import wrap
 
 project = "Protein" # don't edit this
 
@@ -17,7 +19,12 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
+    str=""
+    f=open(filename,"r")
+    text=f.read().splitlines()
+    for i in text:
+        str+=i
+    return str
 
 
 '''
@@ -27,8 +34,16 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
-    return
-
+    lst=[]
+    rna=dna.replace("T","U")
+    for i in range(startIndex,len(dna),3):
+        temp=rna[i:i+3]
+        if rna[i:i+3]=="UAA" or rna[i:i+3]=="UAG" or rna[i:i+3]=="UGA":
+            lst.append(temp)
+            break
+        else:
+            lst.append(temp)
+    return lst     
 
 '''
 makeCodonDictionary(filename)
@@ -37,9 +52,17 @@ Parameters: str
 Returns: dict mapping strs to strs
 '''
 def makeCodonDictionary(filename):
+    dictionary={}
+    lst=[]
     import json
-    return
-
+    f=open(filename,"r")
+    file=json.load(f)
+    for i in file:
+        for j in file[i]:
+            new=j.replace("T","U")
+            dictionary[new]=i
+    return dictionary
+        
 
 '''
 generateProtein(codons, codonD)
@@ -48,7 +71,15 @@ Parameters: list of strs ; dict mapping strs to strs
 Returns: list of strs
 '''
 def generateProtein(codons, codonD):
-    return
+    lst=[]
+    for i in codons:
+        if i  in codonD:
+            lst.append(codonD[i])
+            if codonD[i]=="Stop":
+                break
+    if lst[0] !="Start":
+        lst[0]="Start"        
+    return lst
 
 
 '''
@@ -58,9 +89,25 @@ Parameters: str ; str
 Returns: 2D list of strs
 '''
 def synthesizeProteins(dnaFilename, codonFilename):
-    return
-
-
+    dna_file=readFile(dnaFilename)
+    codon_file=makeCodonDictionary(codonFilename)
+    lst=[]
+    count=0
+    for i in range(0,len(dna_file)):
+        code=dna_file[i:i+3]
+        if code=="ATG":
+            lst.append(code)
+            rna=dnaToRna(dna_file,i)
+            protein=generateProtein(rna,codon_file)
+            lst.append(protein)
+            lst.remove("ATG")
+        i=i+(3*len(rna))
+        if code !="ATG":
+            i+=1
+            count+=1
+    # print(lst[0])
+    return 
+    
 def runWeek1():
     print("Human DNA")
     humanProteins = synthesizeProteins("data/human_p53.txt", "data/codon_table.json")
@@ -77,7 +124,11 @@ Parameters: 2D list of strs ; 2D list of strs
 Returns: 2D list of strs
 '''
 def commonProteins(proteinList1, proteinList2):
-    return
+    common_pro=[]
+    for i in proteinList1:
+        if i in proteinList2:
+            common_pro.append(i)
+    return common_pro
 
 
 '''
@@ -87,7 +138,11 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def combineProteins(proteinList):
-    return
+    combine_pro=[]
+    for i in proteinList:
+        for j in i:
+            combine_pro.append(j)
+    return combine_pro
 
 
 '''
@@ -186,18 +241,18 @@ def runFullProgram():
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    test.week1Tests()
-    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    runWeek1()
+    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    # test.week1Tests()
+    # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+    # runWeek1()
 
     ## Uncomment these for Week 2 ##
-    """
+   
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
     runWeek2()
-    """
+   
 
     ## Uncomment these for Week 3 ##
     """
