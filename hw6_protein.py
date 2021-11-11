@@ -52,8 +52,27 @@ Parameters: str
 Returns: dict mapping strs to strs
 '''
 def makeCodonDictionary(filename):
+    dictionary={}
+    lst=[]
     import json
-    return
+    f=open(filename,"r")
+    file=json.load(f)
+    for i in file:
+        for j in file[i]:
+            new=j.replace("T","U")
+            dictionary[new]=i
+    return dictionary
+        
+
+        
+         
+        
+        
+
+        
+    
+        
+
 
 
 '''
