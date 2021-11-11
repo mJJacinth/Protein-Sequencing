@@ -64,17 +64,6 @@ def makeCodonDictionary(filename):
     return dictionary
         
 
-        
-         
-        
-        
-
-        
-    
-        
-
-
-
 '''
 generateProtein(codons, codonD)
 #4 [Check6-1]
@@ -100,9 +89,25 @@ Parameters: str ; str
 Returns: 2D list of strs
 '''
 def synthesizeProteins(dnaFilename, codonFilename):
-    return
-
-
+    dna_file=readFile(dnaFilename)
+    codon_file=makeCodonDictionary(codonFilename)
+    lst=[]
+    count=0
+    for i in range(0,len(dna_file)):
+        code=dna_file[i:i+3]
+        if code=="ATG":
+            lst.append(code)
+            rna=dnaToRna(dna_file,i)
+            protein=generateProtein(rna,codon_file)
+            lst.append(protein)
+            lst.remove("ATG")
+        i=i+(3*len(rna))
+        if code !="ATG":
+            i+=1
+            count+=1
+    # print(lst[0])
+    return 
+    
 def runWeek1():
     print("Human DNA")
     humanProteins = synthesizeProteins("data/human_p53.txt", "data/codon_table.json")
@@ -119,7 +124,11 @@ Parameters: 2D list of strs ; 2D list of strs
 Returns: 2D list of strs
 '''
 def commonProteins(proteinList1, proteinList2):
-    return
+    common_pro=[]
+    for i in proteinList1:
+        if i in proteinList2:
+            common_pro.append(i)
+    return common_pro
 
 
 '''
@@ -228,18 +237,18 @@ def runFullProgram():
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    test.week1Tests()
-    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    runWeek1()
+    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    # test.week1Tests()
+    # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+    # runWeek1()
 
     ## Uncomment these for Week 2 ##
-    """
+   
     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
     runWeek2()
-    """
+   
 
     ## Uncomment these for Week 3 ##
     """
