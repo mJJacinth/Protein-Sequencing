@@ -4,7 +4,9 @@ Name:
 Roll Number:
 """
 
+from os import read
 import hw6_protein_tests as test
+from textwrap import wrap
 
 project = "Protein" # don't edit this
 
@@ -17,7 +19,12 @@ Parameters: str
 Returns: str
 '''
 def readFile(filename):
-    return
+    str=""
+    f=open(filename,"r")
+    text=f.read().splitlines()
+    for i in text:
+        str+=i
+    return str
 
 
 '''
@@ -27,8 +34,16 @@ Parameters: str ; int
 Returns: list of strs
 '''
 def dnaToRna(dna, startIndex):
-    return
-
+    lst=[]
+    rna=dna.replace("T","U")
+    for i in range(startIndex,len(dna),3):
+        temp=rna[i:i+3]
+        if rna[i:i+3]=="UAA" or rna[i:i+3]=="UAG" or rna[i:i+3]=="UGA":
+            lst.append(temp)
+            break
+        else:
+            lst.append(temp)
+    return lst     
 
 '''
 makeCodonDictionary(filename)
@@ -37,8 +52,27 @@ Parameters: str
 Returns: dict mapping strs to strs
 '''
 def makeCodonDictionary(filename):
+    dictionary={}
+    lst=[]
     import json
-    return
+    f=open(filename,"r")
+    file=json.load(f)
+    for i in file:
+        for j in file[i]:
+            new=j.replace("T","U")
+            dictionary[new]=i
+    return dictionary
+        
+
+        
+         
+        
+        
+
+        
+    
+        
+
 
 
 '''
