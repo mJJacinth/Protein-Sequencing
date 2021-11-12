@@ -92,21 +92,19 @@ def synthesizeProteins(dnaFilename, codonFilename):
     dna_file=readFile(dnaFilename)
     codon_file=makeCodonDictionary(codonFilename)
     lst=[]
-    count=0
-    for i in range(0,len(dna_file)):
+    count=0 
+    i=0
+    while i!= len(dna_file):
         code=dna_file[i:i+3]
         if code=="ATG":
-            lst.append(code)
             rna=dnaToRna(dna_file,i)
             protein=generateProtein(rna,codon_file)
             lst.append(protein)
-            lst.remove("ATG")
-        i=i+(3*len(rna))
-        if code !="ATG":
+            i=i+(3*len(rna))
+        else:
             i+=1
             count+=1
-    # print(lst[0])
-    return 
+    return lst
     
 def runWeek1():
     print("Human DNA")
@@ -247,17 +245,17 @@ def runFullProgram():
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    # test.week1Tests()
-    # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    # runWeek1()
+    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    test.week1Tests()
+    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+    runWeek1()
 
     ## Uncomment these for Week 2 ##
    
-    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.week2Tests()
-    print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    runWeek2()
+    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    # test.week2Tests()
+    # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
+    # runWeek2()
    
 
     ## Uncomment these for Week 3 ##
