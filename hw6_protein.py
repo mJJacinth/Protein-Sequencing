@@ -280,7 +280,17 @@ Parameters: list of strs ; list of floats ; str ; list of floats ; str ; [option
 Returns: None
 '''
 def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList=None):
+    import numpy as np
     import matplotlib.pyplot as plt
+    w = 0.35  
+    xvalues=np.arange(len(xLabels)) 
+    plt.bar(xvalues, freqList1, width=-w, align='edge', label=label1, edgecolor=edgeList) 
+    plt.bar(xvalues, freqList2, width=w, align='edge', label=label2,edgecolor=edgeList)
+    plt.xticks(ticks=list(range(len(xLabels) )),labels=xLabels, rotation="vertical") 
+    plt.legend()
+    plt.title("CreateCreate a Bar Chart chart")
+    plt.show()
+
     return
 
 
