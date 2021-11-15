@@ -7,6 +7,7 @@ Roll Number:
 from os import read, remove
 import hw6_protein_tests as test
 from textwrap import wrap
+from itertools import zip_longest
 
 project = "Protein" # don't edit this
 
@@ -216,19 +217,13 @@ def displayTextResults(commonalities, differences):
     print(commonProteins)
     for i in commonalities:
         if i=="Start" or i=="Stop":
-             pass
+            pass
         else:
             print(i)
     print("DNA sequences")
     for item in differences:
         print(item[0],":",round(item[1]*100,2),"% in seq1,",round(item[2]*100,2),"% in seq2")
-    return        
-
-
-
-            
-    
-    return
+    return       
 
 
 def runWeek2():
@@ -249,7 +244,14 @@ Parameters: 2D list of strs ; 2D list of strs
 Returns: list of strs
 '''
 def makeAminoAcidLabels(proteinList1, proteinList2):
-    return
+    pro_lis1,pro_lis2=combineProteins(proteinList1),combineProteins(proteinList2)
+    lst=[]
+    for i,j in zip_longest(pro_lis1,pro_lis2):
+        if i not in lst and i!=None:
+            lst.append(i)
+        if j not in lst and j!= None:
+            lst.append(j)
+    return sorted(lst)
 
 
 '''
@@ -304,16 +306,15 @@ if __name__ == "__main__":
 
     ## Uncomment these for Week 2 ##
    
-    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    test.week2Tests()
-    print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    runWeek2()
+    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    # test.week2Tests()
+    # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
+    # runWeek2()
    
 
     ## Uncomment these for Week 3 ##
-    """
     print("\n" + "#"*15 + " WEEK 3 TESTS " +  "#" * 16 + "\n")
     test.week3Tests()
     print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     runFullProgram()
-    """
+    
