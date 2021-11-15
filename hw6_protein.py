@@ -166,9 +166,36 @@ Parameters: 2D list of strs ; 2D list of strs ; float
 Returns: 2D list of values
 '''
 def findAminoAcidDifferences(proteinList1, proteinList2, cutoff):
-    return
-
-
+    lst=[]
+    list1=combineProteins(proteinList1)
+    list2=combineProteins(proteinList2)
+    dic1=aminoAcidDictionary(list1)
+    dic2=aminoAcidDictionary(list2)
+    diff_lis1=list(set(list2)-set(list1))
+    diff_lis2=list(set(list1)-set(list2))
+    for i in diff_lis1:
+        dic1[i]=0
+    for j in diff_lis2:
+        dic2[j]=0
+    len1=len(list1)
+    freq1={}
+    for acid1 in dic1:
+        freq1[acid1]=dic1[acid1]/len1
+    len2=len(list2)
+    freq2={}
+    for acid2 in dic2:
+        freq2[acid2]=dic2[acid2]/len2
+    for k,l in dic1.items():
+        lst2=[]
+        if k!="Start" and k!="Stop":
+            if k in dic2.keys():
+                freq=abs(freq1[k]-freq2[k])
+                if freq>cutoff:
+                    lst2.append(k)
+                    lst2.append(freq1[k])
+                    lst2.append(freq2[k])
+                    lst.append(lst2)         
+    return lst
 '''
 displayTextResults(commonalities, differences)
 #5 [Check6-2]
@@ -245,17 +272,17 @@ def runFullProgram():
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    test.week1Tests()
-    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    runWeek1()
+    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    # test.week1Tests()
+    # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+    # runWeek1()
 
     ## Uncomment these for Week 2 ##
    
-    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-    # test.week2Tests()
-    # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-    # runWeek2()
+    print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    test.week2Tests()
+    print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
+    runWeek2()
    
 
     ## Uncomment these for Week 3 ##
