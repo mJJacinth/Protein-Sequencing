@@ -4,7 +4,7 @@ Name:
 Roll Number:
 """
 
-from os import read
+from os import read, remove
 import hw6_protein_tests as test
 from textwrap import wrap
 
@@ -203,6 +203,31 @@ Parameters: 2D list of strs ; 2D list of values
 Returns: None
 '''
 def displayTextResults(commonalities, differences):
+    print("The commonalities:")
+    for i in sorted(commonalities):
+        commonProteins=""
+        let =i[1:len(i)-1]
+        count=0
+        for j in let:
+            commonProteins+=j
+            count+=1
+            if count!=len(let):
+                commonProteins+="-"
+    print(commonProteins)
+    for i in commonalities:
+        if i=="Start" or i=="Stop":
+             pass
+        else:
+            print(i)
+    print("DNA sequences")
+    for item in differences:
+        print(item[0],":",round(item[1]*100,2),"% in seq1,",round(item[2]*100,2),"% in seq2")
+    return        
+
+
+
+            
+    
     return
 
 
