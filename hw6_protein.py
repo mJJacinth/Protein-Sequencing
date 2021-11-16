@@ -5,6 +5,7 @@ Roll Number:
 """
 
 from os import read, remove
+from typing import final
 import hw6_protein_tests as test
 from textwrap import wrap
 from itertools import zip_longest
@@ -288,7 +289,7 @@ def createChart(xLabels, freqList1, label1, freqList2, label2, edgeList=None):
     plt.bar(xvalues, freqList2, width=w, align='edge', label=label2,edgecolor=edgeList)
     plt.xticks(ticks=list(range(len(xLabels) )),labels=xLabels, rotation="vertical") 
     plt.legend()
-    plt.title("CreateCreate a Bar Chart chart")
+    plt.title("Create a Bar Chart")
     plt.show()
 
     return
@@ -301,7 +302,16 @@ Parameters: list of strs ; 2D list of values
 Returns: list of strs
 '''
 def makeEdgeList(labels, biggestDiffs):
-    return
+    black_white=[]
+    first=[]
+    for each in biggestDiffs:
+        first.append(each[0])
+    for each in labels:
+        if each in first:
+            black_white.append("black")
+        else:
+            black_white.append("white")
+    return black_white
 
 
 '''
